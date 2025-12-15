@@ -26,12 +26,12 @@ jobs:
 
       - name: Run preprocessing script
         run: |
-          python automate_Nama-siswa.py
+          python automate_Muhammad-Luqmaan.py
 
       - name: Commit processed dataset
         run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
-          git add preprocessing/namadataset_preprocessing/processed_data.csv
+          git config --global user.name "Maan-py"
+          git config --global user.email "mluqmaan22@gmail.com"
+          git add preprocessing/UNSWNB15_preprocessing/processed_data.csv
           git commit -m "Update processed dataset (automated)" || echo "No changes to commit"
           git push
