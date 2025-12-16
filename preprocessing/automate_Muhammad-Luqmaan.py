@@ -17,13 +17,37 @@ def preprocess_data(df: pd.DataFrame):
     - Scaling numerik
     - Gabung kembali
     """
+
+    selected_features = [
+        "dur",
+        "proto",
+        "service",
+        "state",
+        "spkts",
+        "dpkts",
+        "sbytes",
+        "dbytes",
+        "rate",
+        "sttl",
+        "dttl",
+        "sload",
+        "dload",
+        "ct_srv_src",
+        "ct_state_ttl",
+        "label",
+    ]
+
+    df = df[selected_features]
     # Pisahkan fitur dan label
     X = df.drop(columns=["label"])
     y = df["label"]
 
+    df.drop_duplicates(inplace=True)
+
     # Identifikasi kolom
-    categorical_cols = X.select_dtypes(include=["object"]).columns.tolist()
-    numerical_cols = X.select_dtypes(include=["int64", "float64"]).columns.tolist()
+    categorical_cols = ["proto", "service", "state"]
+
+    numerical_cols = df.select_dtypes(include=["int64", "float64"]).columns
 
     # Encoding kategorikal
     encoder = OneHotEncoder(drop="first", sparse_output=False, handle_unknown="ignore")
@@ -63,9 +87,6 @@ def save_processed_data(X, y, output_path: str):
 
 
 def main():
-    # ===============================
-    # PATH (SESUAIKAN)
-    # ===============================
     INPUT_PATH = "UNSW_NB15_raw/UNSW_NB15_training-set.csv"
     OUTPUT_PATH = "preprocessing/UNSW_NB15_preprocessing/UNSW_NB15_preprocessed.csv"
 
