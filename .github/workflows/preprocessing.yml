@@ -33,8 +33,8 @@ jobs:
 
       - name: Commit processed dataset
         run: |
-          git config user.name "Maan-py"
-          git config user.email "mluqmaan22@gmail.com"
-          git add preprocessing/UNSW_NB15_preprocessing/UNSW_NB15_prprocessed_data.csv
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add preprocessing/UNSW_NB15_preprocessing/UNSW_NB15_preprocessed.csv
           git commit -m "Update processed dataset (automated)" || echo "No changes to commit"
           git push
