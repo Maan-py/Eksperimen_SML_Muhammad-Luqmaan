@@ -38,16 +38,17 @@ def preprocess_data(df: pd.DataFrame):
     ]
 
     df = df[selected_features]
+
+    df = df.drop_duplicates()
+
     # Pisahkan fitur dan label
     X = df.drop(columns=["label"])
     y = df["label"]
 
-    df.drop_duplicates(inplace=True)
-
     # Identifikasi kolom
     categorical_cols = ["proto", "service", "state"]
 
-    numerical_cols = df.select_dtypes(include=["int64", "float64"]).columns
+    numerical_cols = X.select_dtypes(include=["int64", "float64"]).columns
 
     # Encoding kategorikal
     encoder = OneHotEncoder(drop="first", sparse_output=False, handle_unknown="ignore")
@@ -93,7 +94,6 @@ def main():
     # Load data
     df = load_data(INPUT_PATH)
 
-    # (Opsional) Sampling ke 10.000 data
     if len(df) > 10000:
         df = df.groupby("label", group_keys=False).apply(
             lambda x: x.sample(frac=10000 / len(df), random_state=42)
