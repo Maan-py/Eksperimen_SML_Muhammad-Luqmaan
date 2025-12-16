@@ -57,7 +57,7 @@ def preprocess_data(df: pd.DataFrame):
         X[col] = encoder.fit_transform(X[col])
 
     encoded_cat_cols = X.columns.tolist()
-    X_cat = pd.DataFrame(X, columns=encoded_cat_cols, index=X.index)
+    X_cat = pd.DataFrame(X, columns=categorical_cols, index=X.index)
 
     # Scaling numerik (aman untuk outlier)
     scaler = RobustScaler()
