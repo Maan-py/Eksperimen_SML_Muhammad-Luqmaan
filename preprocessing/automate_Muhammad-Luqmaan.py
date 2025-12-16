@@ -67,7 +67,7 @@ def main():
     # PATH (SESUAIKAN)
     # ===============================
     INPUT_PATH = "UNSW_NB15_raw/UNSW_NB15_training-set.csv"
-    OUTPUT_PATH = "preprocessing/UNSW_NB15_preprocessing/UNSW_NB15_preprocessing/UNSW_NB15_processed_data.csv.csv"
+    OUTPUT_PATH = "preprocessing/UNSW_NB15_preprocessing"
 
     # Load data
     df = load_data(INPUT_PATH)
