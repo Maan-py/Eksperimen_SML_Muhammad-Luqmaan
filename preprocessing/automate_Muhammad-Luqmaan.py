@@ -1,5 +1,5 @@
 import pandas as pd
-from sklearn.preprocessing import OneHotEncoder, RobustScaler
+from sklearn.preprocessing import LabelEncoder, RobustScaler
 from sklearn.model_selection import train_test_split
 import os
 
@@ -51,11 +51,13 @@ def preprocess_data(df: pd.DataFrame):
     numerical_cols = X.select_dtypes(include=["int64", "float64"]).columns
 
     # Encoding kategorikal
-    encoder = OneHotEncoder(drop="first", sparse_output=False, handle_unknown="ignore")
-    X_cat = encoder.fit_transform(X[categorical_cols])
-    cat_feature_names = encoder.get_feature_names_out(categorical_cols)
+    encoder = LabelEncoder()
 
-    X_cat = pd.DataFrame(X_cat, columns=cat_feature_names, index=X.index)
+    for col in categorical_cols:
+        X[col] = encoder.fit_transform(X[col])
+
+    encoded_cat_cols = X.columns.tolist()
+    X_cat = pd.DataFrame(X, columns=encoded_cat_cols, index=X.index)
 
     # Scaling numerik (aman untuk outlier)
     scaler = RobustScaler()
